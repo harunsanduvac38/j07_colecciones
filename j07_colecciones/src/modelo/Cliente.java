@@ -1,5 +1,8 @@
 package modelo;
 
+import java.text.Collator;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Cliente implements Comparable<Cliente>{
@@ -82,6 +85,26 @@ public class Cliente implements Comparable<Cliente>{
 //		else
 //			return -1;
 		return this.idCliente - o.idCliente;
+	}
+	
+//	Crear un método que retorne un Comparator por apellidos y nombre
+	
+	public static Comparator<Cliente> getComparatorApellidos(){
+		return new Comparator<Cliente>() {
+
+			@Override
+			public int compare(Cliente o1, Cliente o2) {
+				
+				String nom1 = o1.apellido1 + o1.apellido2 + o1.nombre + o1.idCliente;
+				String nom2 = o2.apellido1 + o2.apellido2 + o2.nombre + o2.idCliente;
+				
+				Collator col = Collator.getInstance(new Locale("es"));
+				return col.compare(nom1, nom2);
+				
+//				return nom1.compareToIgnoreCase(nom2);
+			}
+		};
+		
 	}
 	
 	
